@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { Box } from './components/box';
 import { Statistics } from './components/Statistics';
 import { FeedbackOptions } from './components/FeedbackOptions';
 import { Section } from './components/Section';
@@ -31,7 +32,7 @@ export class App extends Component {
   render() {
     const { good, neutral, bad } = this.state;
     return (
-      <div>
+      <Box>
         <Section title="Please leave feedback">
           <FeedbackOptions
             options={this.options}
@@ -52,7 +53,7 @@ export class App extends Component {
             />
           </Section>
         )}
-      </div>
+      </Box>
     );
   }
 }

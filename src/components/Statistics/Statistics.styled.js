@@ -8,4 +8,5 @@ export const StatisticsItem = styled.li`
 
 export const StatisticsList = styled.ul`
   margin-top: ${({ theme }) => theme.space.ml};
+  list-style: none;
 `;
