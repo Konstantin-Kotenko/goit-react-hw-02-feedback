@@ -1,58 +1,29 @@
-import { Component } from 'react';
-import { Statistics } from './components/Statistics';
-import { FeedbackOptions } from './components/FeedbackOptions';
-import { Section } from './components/Section';
-import { Notification } from './components/Notification';
+import user from 'data/user.json';
+import data from 'data/data.json';
+import friends from 'data/friends.json';
+import transactions from 'data/transactions.json';
+import { Profile } from 'components/Profile/Profile';
+import { Statistics } from 'components/Statistics/Statistics';
+import { FriendList } from 'components/FriendList/FriendList';
+import { TransactionHistory } from 'components/TransactionHistory/TransactionHistory';
 
-export class App extends Component {
-  state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
-  };
-
-  onLeaveFeedback = e => {
-    const { id } = e.target;
-    this.setState(prevState => ({ [id]: prevState[id] + 1 }));
-  };
-
-  countTotalFeedback = () => {
-    const arr = Object.values(this.state);
-    return arr.reduce((prev, current) => prev + current, 0);
-  };
-
-  countPositiveFeedbackPercentage = () => {
-    const { good } = this.state;
-    return good ? Math.round((good / this.countTotalFeedback()) * 100) : 0;
-  };
-
-  options = Object.keys(this.state);
-
-  render() {
-    const { good, neutral, bad } = this.state;
-    return (
-      <div>
-        <Section title="Please leave feedback">
-          <FeedbackOptions
-            options={this.options}
-            onLeaveFeedback={this.onLeaveFeedback}
+export const App = () => {
+  return (
+    <div>
+      {
+        <>
+          <Profile
+            username={user.username}
+            tag={user.tag}
+            location={user.location}
+            avatar={user.avatar}
+            stats={user.stats}
           />
-        </Section>
-
-        {this.countTotalFeedback() <= 0 ? (
-          <Notification message="There is no feedback" />
-        ) : (
-          <Section title="Statistics">
-            <Statistics
-              good={good}
-              neutral={neutral}
-              bad={bad}
-              total={this.countTotalFeedback()}
-              positivePercentage={this.countPositiveFeedbackPercentage()}
-            />
-          </Section>
-        )}
-      </div>
-    );
-  }
-}
+          <Statistics title="Upload stats" stats={data} />
+          <FriendList friends={friends} />
+          <TransactionHistory items={transactions} />
+        </>
+      }
+    </div>
+  );
+};

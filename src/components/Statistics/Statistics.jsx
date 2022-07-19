@@ -1,38 +1,32 @@
 import PropTypes from 'prop-types';
-import { StatisticsList, StatisticsItem } from './Statistics.styled.js';
+import { getRandomHexColor } from 'utils/getRandomColor';
+import {
+  StatisticsBox,
+  Title,
+  StatsticsList,
+  StatisticsItem,
+  StatisticsLabel,
+  Percentage,
+} from 'components/Statistics/Statistics.styled';
 
-export const Statistics = ({
-  good,
-  neutral,
-  bad,
-  total,
-  positivePercentage,
-}) => {
+export const Statistics = ({ stats }) => {
   return (
-    <StatisticsList>
-      <StatisticsItem>
-        Good: <span>{good}</span>
-      </StatisticsItem>
-      <StatisticsItem>
-        Neutral: <span>{neutral}</span>
-      </StatisticsItem>
-      <StatisticsItem>
-        Bad: <span>{bad}</span>
-      </StatisticsItem>
-      <StatisticsItem>
-        Total: <span>{total}</span>
-      </StatisticsItem>
-      <StatisticsItem>
-        Positive feedback: <span>{positivePercentage}%</span>
-      </StatisticsItem>
-    </StatisticsList>
+    <StatisticsBox>
+      <Title>Upload stats</Title>
+      <StatsticsList>
+        {stats.map(stat => (
+          <StatisticsItem backgroundColor={getRandomHexColor()} key={stat.id}>
+            <StatisticsLabel>{stat.label}</StatisticsLabel>
+            <Percentage>{stat.percentage}%</Percentage>
+          </StatisticsItem>
+        ))}
+      </StatsticsList>
+    </StatisticsBox>
   );
 };
 
 Statistics.propTypes = {
-  good: PropTypes.number,
-  neutral: PropTypes.number,
-  bad: PropTypes.number,
-  total: PropTypes.number.isRequired,
-  positivePercentage: PropTypes.number.isRequired,
+  id: PropTypes.number,
+  label: PropTypes.string,
+  percentage: PropTypes.number,
 };
