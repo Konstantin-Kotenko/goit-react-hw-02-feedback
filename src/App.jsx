@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Box } from './components/Fox';
+import { Box } from './components/Box';
 import { Statistics } from './components/Statistics';
 import { FeedbackOptions } from './components/FeedbackOptions';
 import { Section } from './components/Section';
